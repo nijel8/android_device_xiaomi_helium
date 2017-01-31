@@ -99,7 +99,7 @@
     </array>
     <array name="cpu.clusters.cores">
         <value>4</value> <!-- Cluster 0 has 4 cores (cpu0, cpu1, cpu2, cpu3) -->
-        <value>4</value> <!-- Cluster 0 has 4 cores (cpu4, cpu5, cpu6, cpu7) -->
+        <value>4</value> <!-- Cluster 1 has 4 cores (cpu4, cpu5, cpu6, cpu7) -->
     </array>
 
     <!-- This is the battery capacity in mAh -->
