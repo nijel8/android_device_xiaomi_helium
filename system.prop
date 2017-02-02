@@ -39,3 +39,12 @@ persist.hwc.enable_vds=1
 
 #force HAL1 for below packages
 camera.hal1.packagelist=com.skype.raider,com.google.android.talk
+
+# USB charging notification: 0-disable, 1-enable
+persist.charging.notify=0
+
+# Wireless and USB ADB debug notification: 0-disable, 1-enable
+persist.adb.notify=0
+
+# Default USB configuration is MTP: 0-disable, 1-enable
+persist.system.usb.mtp=1
