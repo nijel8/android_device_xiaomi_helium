@@ -37,6 +37,6 @@ WITH_SU := true
 # Use the latest approved GMS identifiers unless running a signed build
 ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=Xiaomi/helium/helium:7.0/NRD90M/7.1.19:user/release-keys \
-    PRIVATE_BUILD_DESC="helium-user 7.0 NRD90M 7.1.19 release-keys"
+    BUILD_FINGERPRINT=Xiaomi/helium/helium:7.0/NRD90M/7.2.9:user/release-keys \
+    PRIVATE_BUILD_DESC="helium-user 7.0 NRD90M 7.2.9 release-keys"
 endif
