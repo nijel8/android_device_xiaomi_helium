@@ -830,6 +830,4 @@ vendor/lib/libTimeService.so
 -vendor/lib/libtime_genoff.so
 
 # WiFi
-bin/cnss-daemon
-bin/cnss_diag
 bin/wcnss_service
