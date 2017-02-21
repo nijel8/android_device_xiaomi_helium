@@ -30,11 +30,13 @@
 service mmbn-daemon /system/bin/mmbn-daemon
     class main
     oneshot
+    seclabel u:r:mmbn-daemon:s0
 
 service displayfeature /system/bin/displayfeature
     class late_start
     user root
     group root
+    seclabel u:r:displayfeature:s0
 
 on property:init.svc.surfaceflinger=stopped
     stop displayfeature
