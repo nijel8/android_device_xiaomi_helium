@@ -120,6 +120,8 @@ on enable-low-power
     write /proc/sys/kernel/sched_freq_dec_notify 50000
 
     # Configure core_ctl
+    write /sys/devices/system/cpu/cpu0/core_ctl/not_preferred "1 0 0 0"
+    write /sys/devices/system/cpu/cpu4/core_ctl/not_preferred "1 0 0 0"
     write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
     write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
     write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 68
