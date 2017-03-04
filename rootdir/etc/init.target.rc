@@ -56,5 +56,6 @@ on property:init.svc.zygote=running
 on property:init.svc.zygote=restarting
     stop displayfeature
 
+on post-fs-data
 # Fix for Telephony access
     chmod 0644 /proc/cmdline
