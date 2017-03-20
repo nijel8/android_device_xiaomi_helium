@@ -56,27 +56,27 @@ on enable-low-power
     # Enable governor for power cluster
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 59000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 80
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 300
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1305600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 400000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 691200:80"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 691200
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "53 400000:25 691200:45 806400:49 1017600:66 1190400:88 1305600:94 1382400:97 1401600:99"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
 
     # Enable governor for perf cluster
     write /sys/devices/system/cpu/cpu4/online 1
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "19000 1382400:39000"
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 300
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1382400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 400000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "85 1382400:90 1747200:80"
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "36 400000:20 883200:35 940800:51 998400:56 1056000:61 1113600:68 1190400:77 1248000:89 1305600:95 1382400:96 1612800:97 1747200:98 1804800:99"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 20000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 40000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 883200
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 400000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 60000
 
     # HMP Task packing settings for 8956
@@ -119,15 +119,13 @@ on enable-low-power
     write /proc/sys/kernel/sched_freq_inc_notify 50000
     write /proc/sys/kernel/sched_freq_dec_notify 50000
 
-    # Configure core_ctl - little
-    write /sys/devices/system/cpu/cpu0/core_ctl/not_preferred "1 0 0 0"
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 50
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres 40
-
-    # Configure core_ctl - big
+    # Configure core_ctl
     write /sys/devices/system/cpu/cpu4/core_ctl/not_preferred "1 0 0 0"
+    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
+    write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
     write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 68
     write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 40
+    write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
     write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 4
     write /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 1
 
@@ -154,8 +152,8 @@ on enable-low-power
     write /proc/sys/kernel/sched_upmigrate_min_nice 15
 
     # set (super) packing parameters
-    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 1017600
-    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_freq 0
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 691200
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_freq 883200
 
     # Enable adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
