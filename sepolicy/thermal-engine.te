@@ -1,2 +1,0 @@
-allow thermal-engine system_data_file:dir rw_dir_perms;
-allow thermal-engine decrypt_file:file create_file_perms;

@@ -1,5 +1,0 @@
-# displayfeature
-/system/bin/displayfeature                              u:object_r:displayfeature_service:s0
-
-# mmbn-daemon
-/system/bin/mmbn-daemon                                 u:object_r:mmbn-daemon_service:s0

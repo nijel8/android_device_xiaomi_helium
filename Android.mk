@@ -23,10 +23,4 @@ LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_DEVICE),helium)
 include $(call all-makefiles-under,$(LOCAL_PATH))
-
-include $(CLEAR_VARS)
-    
-# Create a link to get rid of "org.apache.http.legacy.jar not found" logcat error
-$(shell ln -sf /system/framework/org.apache.http.legacy.boot.jar \
-		$(TARGET_OUT)/framework/org.apache.http.legacy.jar)
 endif

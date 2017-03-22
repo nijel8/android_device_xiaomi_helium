@@ -1,3 +1,0 @@
-r_dir_file(fingerprintd, firmware_file)
-allow fingerprintd fpc_stat_data_file:file rw_file_perms;
-allow fingerprintd fpc_stat_data_file:dir search;
