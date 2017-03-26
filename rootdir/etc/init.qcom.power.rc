@@ -56,12 +56,12 @@ on enable-low-power
     # Enable governor for power cluster
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 40000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 300
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 80
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 400000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1017600
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "78 400000:86 1017600:91 1382400:93"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "50 691200:76 1017600:91 1382400:93"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 20000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
 
