@@ -52,30 +52,26 @@ on enable-low-power
 
     # Enable governor for power cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 80
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 80000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 40000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1017600
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "87 400000:93 1017600:95 1190400:95"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 80000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 59000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1305600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 691200:80"
 
     # Enable governor for perf cluster
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 93
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 85
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack 80000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 20000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 400000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 4
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 60000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay 40000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 998400
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "87 400000:93 998400:95 1190400:95 1382400:97"           
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 60000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "19000 1382400:39000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1382400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "85 1382400:90 1747200:80"
 
     # HMP Task packing settings for 8956
     write /proc/sys/kernel/sched_small_task 30
