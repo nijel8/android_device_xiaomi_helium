@@ -23,8 +23,11 @@ $(call inherit-product-if-exists, vendor/xiaomi/helium/helium-vendor.mk)
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    init.qcom.power.rc \
-    init.core.ctl.sh
+    init.qcom.power.rc
+
+# CPU congiguration    
+PRODUCT_PACKAGES += \
+    cpu.conf
 
 # Inherit from msm8956-common
 $(call inherit-product, device/xiaomi/msm8956-common/msm8956.mk)
