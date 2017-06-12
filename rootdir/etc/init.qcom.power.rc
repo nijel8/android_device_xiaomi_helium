@@ -49,7 +49,7 @@ on enable-low-power
     write /sys/devices/soc.0/qcom,bcl.56/mode "enable"
 
     # Enable governor
-    exec - root root -- /system/bin/sh /system/bin/cpu_config governor
+    exec - root root -- /system/bin/sh /system/bin/cpuset governor
 
     # HMP Task packing settings for 8956
     write /proc/sys/kernel/sched_small_task 30
@@ -84,7 +84,7 @@ on enable-low-power
     write /proc/sys/kernel/sched_freq_dec_notify 400000
 
     # Load and configure core_ctl if enabled
-    exec - root root -- /system/bin/sh /system/bin/cpu_config core_ctl
+    exec - root root -- /system/bin/sh /system/bin/cpuset core_ctl
 
     # Re-enable thermal
     write /sys/module/msm_thermal/core_control/enabled 1
