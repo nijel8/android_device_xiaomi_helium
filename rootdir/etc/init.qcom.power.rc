@@ -9,32 +9,16 @@ on boot
     # add a cpuset for the camera daemon
     # we want all the little cores for camera
     mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
 
     # Enable sched boost
     write /proc/sys/kernel/sched_boost 1
 
 on enable-low-power
-    # HMP scheduler (big.Little cluster related) settings
-    write /proc/sys/kernel/sched_upmigrate 87
-    write /proc/sys/kernel/sched_downmigrate 85
-
-    write /proc/sys/kernel/sched_window_stats_policy 2
-    write /proc/sys/kernel/sched_ravg_hist_size 5
-
-    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_nr_run 3
-    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_nr_run 3
-
     write /sys/class/devfreq/cpubw/governor "bw_hwmon"
     write /sys/class/devfreq/cpubw/bw_hwmon/io_percent 20
     write /sys/class/devfreq/cpubw/bw_hwmon/guard_band_mbps 30
@@ -49,18 +33,8 @@ on enable-low-power
     write /sys/devices/soc.0/qcom,bcl.56/mode "enable"
 
     # Enable governor
+    write /dev/kmsg "running cpuset governor -> "
     exec - root root -- /system/bin/sh /system/bin/cpuset governor
-
-    # HMP Task packing settings for 8956
-    write /proc/sys/kernel/sched_small_task 30
-    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_load 20
-    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_load 20
 
     # Disable sched boost
     write /proc/sys/kernel/sched_boost 0
@@ -70,20 +44,22 @@ on enable-low-power
 
     # Enable Low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    
+    # Bring up all cores online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
 
     # Disable L2 GDHS on 8976
     write /sys/module/lpm_levels/system/a53/a53-l2-gdhs/idle_enabled "N"
     write /sys/module/lpm_levels/system/a72/a72-l2-gdhs/idle_enabled "N"
 
-    # Enable sched guided freq control
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
-    write /proc/sys/kernel/sched_freq_inc_notify 400000
-    write /proc/sys/kernel/sched_freq_dec_notify 400000
-
     # Load and configure core_ctl if enabled
+    write /dev/kmsg "running cpuset core_ctl -> "
     exec - root root -- /system/bin/sh /system/bin/cpuset core_ctl
 
     # Re-enable thermal
@@ -95,33 +71,13 @@ on enable-low-power
     write /sys/devices/soc.0/qcom,bcl.56/hotplug_soc_mask 32
     write /sys/devices/soc.0/qcom,bcl.56/mode "enable"
 
-    # Enable timer migration to little cluster
-    write /proc/sys/kernel/power_aware_timer_migration 1
+    # HMP scheduler (big.Little cluster related) settings
+    write /dev/kmsg "running cpuset scheduler -> "
+    exec - root root -- /system/bin/sh /system/bin/cpuset scheduler
 
-    # Enable sched colocation and colocation inheritance
-    write /proc/sys/kernel/sched_grp_upmigrate 130
-    write /proc/sys/kernel/sched_grp_downmigrate 110
-    write /proc/sys/kernel/sched_enable_thread_grouping 1
-
-    # Additional sched 
-    write /proc/sys/kernel/sched_spill_nr_run 3
-    write /proc/sys/kernel/sched_init_task_load 100
-
-    # set cpu_boost parameters
-    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1017600 1:0 2:0 3:0 4:0 5:0 6:0 7:0"
-    write /sys/module/cpu_boost/parameters/input_boost_ms 200
-    write /proc/sys/kernel/sched_upmigrate_min_nice 15
-
-    # set (super) packing parameters
-    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 400000
-    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_freq 400000
-
-    # Enable adaptive LMK
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
-    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
-
-    chmod 0660 /sys/module/lowmemorykiller/parameters/minfree
-    write /sys/module/lowmemorykiller/parameters/minfree "14746,18432,22118,25805,40000,55000"
+    # LMK & Process reclaim
+    write /dev/kmsg "running cpuset memory -> "
+    exec - root root -- /system/bin/sh /system/bin/cpuset memory
 
 on charger
     # Disable thermal
